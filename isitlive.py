@@ -51,7 +51,8 @@ def check_endpoint(label, url):
             verify=True,
             allow_redirects=True,
         )
-        response.raise_for_status()
+        if response.status_code >= 500:
+            response.raise_for_status()
 
         return {
             "id": endpoint_id(label),
